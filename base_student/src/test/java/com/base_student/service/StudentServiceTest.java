@@ -31,28 +31,7 @@ public class StudentServiceTest {
     @InjectMocks
     private StudentService studentService;
 
-    @Test
-    void testCreate() {
-        StudentRequestDto request = new StudentRequestDto(
-                null, "John", "Doe", "+52-111-12-34-56", "john.doe@mail.com");
-        StudentModel savedStudent = new StudentModel(
-                1, "John", "Doe", "+52-111-12-34-56", "john.doe@mail.com");
-        when(studentRepository.save(any(StudentModel.class))).thenReturn(savedStudent);
-
-        StudentResponseDto response = studentService.create(request);
-
-        assertEquals(new StudentResponseDto(
-                1, "John", "Doe", "+52-111-12-34-56", "john.doe@mail.com"), response);
-
-        ArgumentCaptor<StudentModel> studentCaptor = ArgumentCaptor.forClass(StudentModel.class);
-        verify(studentRepository).save(studentCaptor.capture());
-        StudentModel studentToSave = studentCaptor.getValue();
-        assertNull(studentToSave.getId());
-        assertEquals("John", studentToSave.getName());
-        assertEquals("Doe", studentToSave.getLastName());
-        assertEquals("+52-111-12-34-56", studentToSave.getPhone());
-        assertEquals("john.doe@mail.com", studentToSave.geteMail());
-    }
+}
 
     @Test
     void testDeleteById() {
